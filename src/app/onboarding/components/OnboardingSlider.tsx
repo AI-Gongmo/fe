@@ -47,6 +47,37 @@ export default function OnboardingSlider({
     setTouchEnd(0);
   };
 
+  // 슬라이드별 스타일 설정
+  const getSlideStyle = () => {
+    switch (currentSlide) {
+      case 0:
+        // 첫 번째 슬라이드: 1:1 비율, 전체 너비의 80%
+        return {
+          container: 'w-[80%] aspect-336/258',
+          imageClass: 'object-cover'
+        };
+      case 1:
+        // 두 번째 슬라이드: 높이 258px, 가로 잘림
+        return {
+          container: 'w-full h-[258px]',
+          imageClass: 'object-cover object-center'
+        };
+      case 2:
+        // 세 번째 슬라이드: 높이 230px, 가로 잘림
+        return {
+          container: 'w-full h-[230px]',
+          imageClass: 'object-cover object-center'
+        };
+      default:
+        return {
+          container: 'w-full h-full',
+          imageClass: 'object-contain'
+        };
+    }
+  };
+
+  const slideStyle = getSlideStyle();
+
   return (
     <div
       className="relative w-full h-full flex justify-center items-center"
@@ -60,7 +91,7 @@ export default function OnboardingSlider({
             {/* 첫 번째 슬라이드일 때 로고 애니메이션 */}
             {currentSlide === 0 && (
               <>
-                {/* Logo1 - 왼쪽으로 이동 (131px에서) */}
+                {/* Logo2 - 왼쪽으로 이동 */}
                 <motion.div
                   className="absolute z-0"
                   style={{ top: '131px' }}
@@ -74,18 +105,18 @@ export default function OnboardingSlider({
                   }}
                 >
                   <Image
-                    src="/imgs/Logo1.svg"
-                    alt="Logo 1 Animation"
+                    src="/imgs/Logo2.svg"
+                    alt="Logo 2 Animation"
                     width={287}
                     height={83}
                     className="object-contain"
                   />
                 </motion.div>
 
-                {/* Logo2 - 오른쪽으로 이동 (224px에서) */}
+                {/* Logo1 - 아래쪽 배치, 이미지와 살짝 겹침 */}
                 <motion.div
-                  className="absolute z-0"
-                  style={{ top: '224px' }}
+                  className="absolute z-20 left-1/2 -translate-x-1/2"
+                  style={{ bottom: 'calc(50% - 40% - 20px)' }}
                   animate={{
                     x: ['-100%', '100vw']
                   }}
@@ -96,8 +127,8 @@ export default function OnboardingSlider({
                   }}
                 >
                   <Image
-                    src="/imgs/Logo2.svg"
-                    alt="Logo 2 Animation"
+                    src="/imgs/Logo1.svg"
+                    alt="Logo 1 Animation"
                     width={295}
                     height={77}
                     className="object-contain"
@@ -107,12 +138,12 @@ export default function OnboardingSlider({
             )}
 
             {/* 슬라이드 이미지 */}
-            <div className="relative z-10 w-full h-full flex justify-center items-center">
+            <div className={`relative z-10 ${slideStyle.container} flex justify-center items-center overflow-hidden`}>
               <Image
                 src={slides[currentSlide].img}
                 alt={`Onboarding ${currentSlide + 1}`}
                 fill
-                className="object-contain"
+                className={slideStyle.imageClass}
                 priority
               />
             </div>
