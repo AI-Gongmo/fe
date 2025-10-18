@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Spacer, Chip, Button } from '@heroui/react';
-import OnboardingSlider from '@/components/OnboardingSlider';
+import OnboardingSlider from '@/app/onboarding/components/OnboardingSlider';
 
 export default function OnboardingPage() {
   const router = useRouter();

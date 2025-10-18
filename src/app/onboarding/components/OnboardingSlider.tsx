@@ -4,11 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Card, CardBody } from '@heroui/react';
 import { motion } from 'framer-motion';
-
-interface OnboardingSlide {
-  text: string;
-  img: string;
-}
+import { OnboardingSlide } from '../types/OnboardingSlideType';
 
 interface OnboardingSliderProps {
   slides: OnboardingSlide[];
@@ -115,9 +111,8 @@ export default function OnboardingSlider({
               <Image
                 src={slides[currentSlide].img}
                 alt={`Onboarding ${currentSlide + 1}`}
-                width={500}
-                height={500}
-                className="max-w-full max-h-full object-contain"
+                fill
+                className="object-contain"
                 priority
               />
             </div>
